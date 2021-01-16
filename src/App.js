@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useEffect} from "react";
+import "./App.css";
+import View from "./pages/index";
+import { connect } from "react-redux";
+import {getImgRequest} from './redux/actions';
 
-function App() {
+function App({getData}) {
+
+
+  useEffect(() => {
+    getData()
+  },[getData])
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <View />
     </div>
   );
 }
 
-export default App;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getData: () => dispatch(getImgRequest()),
+  }
+}
+
+
+export default connect(null, mapDispatchToProps)( App);
